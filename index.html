@@ -240,11 +240,26 @@
             padding: 8rem 2.5rem 4rem;
             max-width: 1100px;
             margin: 0 auto;
-            display: none;
+            display: block;
+            visibility: hidden;
             opacity: 0;
+            height: 0;
+            overflow: hidden;
+            pointer-events: none;
             transition: opacity 0.5s ease;
+            position: absolute;
+            width: 100%;
+            left: 0;
+            top: 0;
         }
-        section.active { display: block; opacity: 1; }
+        section.active {
+            visibility: visible;
+            opacity: 1;
+            height: auto;
+            overflow: visible;
+            pointer-events: auto;
+            position: relative;
+        }
 
         h1, h2, h3 { font-weight: 300; letter-spacing: 0.02em; }
         h1 { font-size: clamp(2rem, 5vw, 3.5rem); line-height: 1.2; margin-bottom: 1.5rem; }
@@ -452,6 +467,9 @@
             padding: 2rem 0;
             border-bottom: 1px solid var(--border);
             align-items: start;
+        }
+        .stack-item .stack-lang-block {
+            display: contents; /* lets children participate in parent grid */
         }
         .stack-item .tool-name {
             font-family: 'Space Grotesk', sans-serif;
@@ -814,41 +832,41 @@
 
     <div class="stack-list">
         <div class="stack-item reveal">
-            <div class="hidden-zh">
+            <div class="hidden-zh stack-lang-block">
                 <div class="tool-name">Blender</div>
                 <div><span class="organ-tag">骨架</span><div class="tool-desc">我在节点编辑器里搭建拓扑，像给龙接脊椎。修改器顺序错了，整条龙会抽搐。骨骼绑定后不接受结构性修改——这是工业标准，也是我研究100目纱网过滤时学到的精度偏执。</div></div>
             </div>
-            <div class="hidden-en">
+            <div class="hidden-en stack-lang-block">
                 <div class="tool-name">Blender</div>
                 <div><span class="organ-tag">SKELETON</span><div class="tool-desc">I build topology in the node editor like wiring a spinal cord. Wrong modifier order, the whole dragon convulses. No structural modifications after rigging—industrial standard, and a precision obsession learned from studying 100-mesh filtration.</div></div>
             </div>
         </div>
         <div class="stack-item reveal">
-            <div class="hidden-zh">
+            <div class="hidden-zh stack-lang-block">
                 <div class="tool-name">After Effects</div>
                 <div><span class="organ-tag">皮肤</span><div class="tool-desc">合成窗口是我的手术室，图层是移植的皮肤。我习惯在渲染前检查每一帧的直方图，像检查术后体征。</div></div>
             </div>
-            <div class="hidden-en">
+            <div class="hidden-en stack-lang-block">
                 <div class="tool-name">After Effects</div>
                 <div><span class="organ-tag">SKIN</span><div class="tool-desc">The composition window is my operating theater; layers are grafted epidermis. I check histograms before rendering like checking post-surgical vitals.</div></div>
             </div>
         </div>
         <div class="stack-item reveal">
-            <div class="hidden-zh">
+            <div class="hidden-zh stack-lang-block">
                 <div class="tool-name">UE5</div>
                 <div><span class="organ-tag">心脏</span><div class="tool-desc">Lumen是心跳，Nanite是血液。当角色第一次在自建关卡里落地时，我听到了心跳。</div></div>
             </div>
-            <div class="hidden-en">
+            <div class="hidden-en stack-lang-block">
                 <div class="tool-name">UE5</div>
                 <div><span class="organ-tag">HEART</span><div class="tool-desc">Lumen is heartbeat; Nanite is blood flow. When the character first landed in my self-built level, I heard it beat.</div></div>
             </div>
         </div>
         <div class="stack-item reveal">
-            <div class="hidden-zh">
+            <div class="hidden-zh stack-lang-block">
                 <div class="tool-name">Meshy / AI</div>
                 <div><span class="organ-tag">外接神经</span><div class="tool-desc">不是替代，是加速。我给它草图，它给选项；我负责否决，它负责量产。DDL驱动，快速迭代。</div></div>
             </div>
-            <div class="hidden-en">
+            <div class="hidden-en stack-lang-block">
                 <div class="tool-name">Meshy / AI</div>
                 <div><span class="organ-tag">NERVES</span><div class="tool-desc">Not replacement, but acceleration. I provide sketches, it provides options; I handle veto, it handles volume. DDL-driven, rapid iteration.</div></div>
             </div>
@@ -872,7 +890,7 @@
     </div>
 
     <div class="log-categories reveal">
-        <div class="log-tag active" onclick="filterLog('all', this)">全部</div>
+        <div class="log-tag log-tag-all active" onclick="filterLog('all', this)">全部</div>
         <div class="log-tag hidden-zh" onclick="filterLog('dev', this)">开发日志</div>
         <div class="log-tag hidden-zh" onclick="filterLog('culture', this)">文化笔记</div>
         <div class="log-tag hidden-zh" onclick="filterLog('prep', this)">备考杂记</div>
@@ -949,11 +967,9 @@
             </div>
         </div>
     </div>
-</section>
 
-<!-- Contact -->
-<section id="contact" style="min-height:auto; padding-top:2rem;">
-    <div class="contact-section reveal">
+    <!-- Contact (moved inside log section) -->
+    <div class="contact-section reveal" style="margin-top:3rem;">
         <div class="hidden-zh">
             <h3>建立连接</h3>
             <p>如果你也在某个未完成的轨道上，这里可能有你的参照系。</p>
@@ -968,6 +984,9 @@
         </div>
     </div>
 </section>
+
+<!-- Contact standalone (removed, now inside log) -->
+<section id="contact-standalone" style="display:none;"></section>
 
 <!-- Footer -->
 <footer>
@@ -1010,6 +1029,9 @@
             const el = document.querySelector('.nav-' + k);
             if (el) el.textContent = labels[k];
         });
+        // Update the "All" filter tag
+        const allTag = document.querySelector('.log-tag-all');
+        if (allTag) allTag.textContent = currentLang === 'en' ? 'All' : '全部';
     }
 
     // Navigation & SPA Routing
@@ -1026,6 +1048,15 @@
         currentSection = id;
         window.scrollTo(0, 0);
         history.pushState(null, null, '#' + id);
+
+        // Trigger reveal animations for newly visible section
+        setTimeout(() => {
+            if (target) {
+                target.querySelectorAll('.reveal').forEach(el => {
+                    el.classList.add('visible');
+                });
+            }
+        }, 50);
 
         // Close mobile menu
         document.getElementById('navLinks').classList.remove('open');
@@ -1059,10 +1090,21 @@
 
     document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 
-    // Back to Top
+    // Back to Top - works in SPA mode (show after section switch + scroll)
     const backToTop = document.getElementById('backToTop');
     window.addEventListener('scroll', () => {
-        backToTop.classList.toggle('visible', window.scrollY > 500);
+        backToTop.classList.toggle('visible', window.scrollY > 300);
+    });
+    // Also show on section switch if content is tall enough
+    const origShowSection = showSection;
+    document.querySelectorAll('section').forEach(s => {
+        new MutationObserver(() => {
+            if (s.classList.contains('active')) {
+                setTimeout(() => {
+                    backToTop.classList.toggle('visible', s.scrollHeight > window.innerHeight * 1.2);
+                }, 100);
+            }
+        }).observe(s, { attributes: true, attributeFilter: ['class'] });
     });
 
     // Log Filter
