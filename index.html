@@ -6,9 +6,9 @@
 
     <!-- SEO -->
     <title>WAXINGFORM · 盈形数字 — 文化数字化与情感叙事</title>
-    <meta name="description" content="盈形数字 WaxingForm 与蚀相工作室 WaneFace：从荆州博物馆的青铜纹样到南洋沉船坐标，从独立游戏《往昔》到文化遗产3D数字化孪生。">
-    <meta name="keywords" content="WaxingForm,盈形数字,蚀相,WaneFace,文化遗产数字化,独立游戏,UE5,Blender,南洋文化,荆州博物馆">
-    <meta name="author" content="王启东">
+    <meta name="description" content="盈形数字 WaxingForm：从荆州博物馆的青铜纹样到南洋沉船坐标，从独立游戏《往昔》到文化遗产3D数字化孪生。">
+    <meta name="keywords" content="WaxingForm,盈形数字,文化遗产数字化,独立游戏,UE5,Blender,南洋文化,荆州博物馆">
+    <meta name="author" content="Ray Lyrith (王启东)">
     <link rel="canonical" href="https://waxingform.com">
 
     <!-- Open Graph -->
@@ -45,7 +45,8 @@
         ],
         "founder": {
             "@type": "Person",
-            "name": "王启东"
+            "name": "Ray Lyrith",
+            "alternateName": "王启东"
         },
         "description": "文化数字化与情感叙事工作室"
     }
@@ -94,7 +95,7 @@
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            transition: opacity 0.6s ease, visibility 0.6s;
+            transition: opacity 0.8s ease, visibility 0.8s;
         }
         #loader.hidden {
             opacity: 0;
@@ -107,6 +108,8 @@
             background: linear-gradient(90deg, var(--moon-light) 0%, var(--moon-light) 50%, transparent 50%);
             box-shadow: inset -8px -8px 16px rgba(0,0,0,0.6);
             animation: moonPhase 2s ease-in-out infinite alternate;
+            opacity: 0;
+            animation: moonPhase 2s ease-in-out infinite alternate, moonFadeIn 1.5s ease forwards;
         }
         .loader-text {
             margin-top: 24px;
@@ -114,6 +117,16 @@
             font-size: 0.75rem;
             letter-spacing: 0.3em;
             color: var(--text-muted);
+            opacity: 0;
+            animation: textFadeIn 1s ease 0.8s forwards;
+        }
+        @keyframes moonFadeIn {
+            0% { opacity: 0; transform: scale(0.8); }
+            100% { opacity: 1; transform: scale(1); }
+        }
+        @keyframes textFadeIn {
+            0% { opacity: 0; letter-spacing: 0.6em; }
+            100% { opacity: 1; letter-spacing: 0.3em; }
         }
         @keyframes moonPhase {
             0% { background: linear-gradient(90deg, var(--moon-light) 0%, var(--moon-light) 10%, transparent 10%); }
@@ -427,6 +440,32 @@
             background-image: radial-gradient(circle at 30% 50%, rgba(56,189,248,0.08) 0%, transparent 50%),
                               radial-gradient(circle at 70% 50%, rgba(56,189,248,0.05) 0%, transparent 50%);
         }
+        .visual-vab {
+            background: linear-gradient(135deg, #0a0a0f 0%, #1a1a24 50%, #0a0a0f 100%);
+            position: relative;
+        }
+        .visual-vab::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: linear-gradient(90deg, var(--moon-light) 0%, var(--moon-light) 50%, transparent 50%);
+            box-shadow: inset -6px -6px 12px rgba(0,0,0,0.6);
+            opacity: 0.15;
+        }
+        .visual-vab::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: repeating-linear-gradient(0deg, transparent, transparent 24px, rgba(196,176,160,0.03) 25px);
+        }
 
         .project-body { padding: 2rem; }
         .project-card h3 {
@@ -702,7 +741,7 @@
     <div class="hero">
         <div class="moon-visual"></div>
         <div class="hidden-zh reveal">
-            <div class="brand-line">盈形数字 · 蚀相工作室</div>
+            <div class="brand-line">Ray Lyrith · 盈形数字</div>
             <h1>我们不在满月上雕刻，<br>我们在弦月里生长。</h1>
             <p class="manifesto">
                 从荆州博物馆的青铜纹样，到南洋海域的沉船坐标；从一段被侵蚀的记忆，到一帧正在成形的数字孪生——我们的工作，是把物理世界里正在消逝的"相"，转化为数据流中持续盈满的"形"。
@@ -710,7 +749,7 @@
             <div class="year-tag">弦月未满，正在成形 ——</div>
         </div>
         <div class="hidden-en reveal">
-            <div class="brand-line">WaxingForm & WaneFace</div>
+            <div class="brand-line">WaxingForm</div>
             <h1>We do not carve<br>on the full moon.</h1>
             <p class="manifesto">
                 We grow within the crescent. From bronze patterns in Jingzhou Museum to shipwreck coordinates in Nanyang waters; from eroded memory to a digital twin still taking shape—our work is to transform what is fading in the physical world into what is accumulating in data.
@@ -779,22 +818,20 @@
             </div>
         </div>
 
-        <!-- WaneFace -->
+        <!-- The Past -->
         <div class="project-card reveal">
             <div class="project-visual visual-wane"></div>
             <div class="project-body">
                 <div class="hidden-zh">
                     <div class="meta">独立游戏 / Steam / 2026</div>
-                    <h3>往昔 · WaneFace</h3>
+                    <h3>往昔</h3>
                     <p>这是一款以记忆失落为基底的心理恐怖游戏。主角在空荡的宅邸中探索，每找到一件旧物，记忆便重构一分——但重构的未必是真相，只是记忆持有者愿意相信的版本。</p>
-                    <p>WaneFace，即"蚀相"：月食时月球被侵蚀的面貌，也是一张正在从时间中消退的脸。</p>
                     <div class="pipeline">UE5 Lumen · AI辅助生成(Meshy) · 弦月氛围</div>
                 </div>
                 <div class="hidden-en">
                     <div class="meta">Indie Game / Steam / 2026</div>
-                    <h3>WaneFace</h3>
+                    <h3>The Past</h3>
                     <p>A psychological horror game built on the archaeology of lost memory. The protagonist explores an empty mansion; each found object reconstructs a fragment of memory—but reconstruction is not truth.</p>
-                    <p>WaneFace: the eroded visage of the moon during eclipse, and a face fading from recollection.</p>
                     <div class="pipeline">UE5 Lumen · AI-assisted (Meshy) · Crescent atmosphere</div>
                 </div>
             </div>
@@ -817,6 +854,27 @@
                     <p>Winter of ninth grade. I painted scales in Blender, vertex by vertex, no textures. When lighting the dragon's eyes in After Effects, I stacked seventeen adjustment layers.</p>
                     <p>National First Prize, Central Audio-Visual Education Center. That matters less than the door it opened—the digital acquisition room at Jingzhou Museum.</p>
                     <div class="pipeline">Blender · AE · Vertex Paint · Hand-keyed</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- VAB -->
+        <div class="project-card reveal">
+            <div class="project-visual visual-vab"></div>
+            <div class="project-body">
+                <div class="hidden-zh">
+                    <div class="meta">桌面应用 / .NET 10 / WPF / 2026</div>
+                    <h3>Vein Archive Builder</h3>
+                    <p>为博物馆展览数字化打包而构建的桌面工具。从拖拽 .glb 模型到生成 .vein 离线归档，三步完成展项资产的标准化封装。</p>
+                    <p>自定义二进制格式：512字节头部 + 资产区块 + 隐私哈希（SHA-256 + HMAC-SHA256）+ 256字节 RSA-2048 数字签名 + 256字节尾部。人类可读的版本号写入头部，如 001-RL-N6MA13A930，与机器级哈希并存但互不替代。</p>
+                    <div class="pipeline">C# · WPF · RSA-2048 · SHA-512 · 自定义二进制格式</div>
+                </div>
+                <div class="hidden-en">
+                    <div class="meta">Desktop App / .NET 10 / WPF / 2026</div>
+                    <h3>Vein Archive Builder</h3>
+                    <p>A desktop tool built for museum exhibition digitization. From drag-and-drop .glb models to generating .vein offline archives, three steps standardize exhibit asset packaging.</p>
+                    <p>Custom binary format: 512-byte header + asset blocks + privacy hashes (SHA-256 + HMAC-SHA256) + 256-byte RSA-2048 digital signature + 256-byte footer. Human-readable version tags like 001-RL-N6MA13A930 coexist with machine-level cryptographic hashes.</p>
+                    <div class="pipeline">C# · WPF · RSA-2048 · SHA-512 · Custom Binary Format</div>
                 </div>
             </div>
         </div>
@@ -900,6 +958,20 @@
     </div>
 
     <div class="log-list">
+        <!-- 2026.06.13 新增：VAB 项目完成 -->
+        <div class="log-entry reveal" data-category="dev">
+            <div class="hidden-zh">
+                <div class="log-date">2026.06.13</div>
+                <div class="log-title">Vein Archive Builder 功能定型</div>
+                <div class="log-excerpt">VAB 从 .NET 10 控制台原型走到 WPF 桌面应用。弦月暗色主题，项目-资产-参数-输出四区导航，.vein 自定义二进制格式：512字节头部 + 资产区块 + 隐私哈希（SHA-256 + HMAC-SHA256）+ RSA-2048 数字签名 + 尾部。负责人从全局配置同步，项目编号自动递增，版本号格式锁定为 001-RL-N6MA13A930 标准。桌面端不再需要 Node.js，.NET 10 原生编译，单文件发布就绪。</div>
+            </div>
+            <div class="hidden-en">
+                <div class="log-date">2026.06.13</div>
+                <div class="log-title">Vein Archive Builder Feature Lock</div>
+                <div class="log-excerpt">VAB evolved from a .NET 10 console prototype to a WPF desktop app. Crescent dark theme, four-zone navigation (Project/Asset/Param/Output), custom .vein binary format: 512-byte header + asset blocks + privacy hashes (SHA-256 + HMAC-SHA256) + RSA-2048 digital signature + footer. Responsible person synced from global config, project number auto-increment, version tag locked to 001-RL-N6MA13A930 standard. No more Node.js dependency; native .NET 10 compilation, single-file publish ready.</div>
+            </div>
+        </div>
+
         <!-- 2026.05.09 新增：今日更新记录 -->
         <div class="log-entry reveal" data-category="dev">
             <div class="hidden-zh">
@@ -993,12 +1065,12 @@
     <div class="hidden-zh">
         <a href="mailto:cuorvo@163.com">邮箱</a>
         <a href="https://b23.tv/gMw4IbN" target="_blank">Bilibili</a>
-        <p style="margin-top:1rem;">盈形数字 WaxingForm · 蚀相 WaneFace · 2010-2026</p>
+        <p style="margin-top:1rem;">Ray Lyrith · 盈形数字 WaxingForm · 2010-2026</p>
     </div>
     <div class="hidden-en">
         <a href="mailto:cuorvo@163.com">Email</a>
         <a href="https://b23.tv/gMw4IbN" target="_blank">Bilibili</a>
-        <p style="margin-top:1rem;">WaxingForm & WaneFace · 2010-2026</p>
+        <p style="margin-top:1rem;">Ray Lyrith · WaxingForm · 2010-2026</p>
     </div>
 </footer>
 
